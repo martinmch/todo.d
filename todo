@@ -118,11 +118,14 @@ fi
 if [[ "$1" == "list" ]]
 then
     tasks=0
-    printed=0
-    for f in ~/todo/todo/*;
+    processed=0
+    listdir="$taskdir"/*
+    [ "$2" == "all" ] && listdir="$tododir"/**/*
+    for f in $listdir
     do
-        print_file "$f"
+        [ ! -e ${f} ] && continue;
         ((tasks = tasks+1))
+        print_file ${f}
     done
     
     echo '--'
