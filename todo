@@ -26,12 +26,17 @@ usage() {
 $prog - Handles todos
 
 Commands:
-    add - add a task
-    del|delete - delete a task
+    add title - add a task with title
+    del|delete x - delete task with id x in list
     list - Lists all open tasks
     list all - Lists all tasks
+    archive x - archive task with id x in list
     archive all - Archives all completed todos
-    archive - Archives all completed todos
+
+Not implemented yet:
+    pri|prioritize x [a-zA-Z]
+    show x
+    edit x
 EOF
     exit 1
 }
