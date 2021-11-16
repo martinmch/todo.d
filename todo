@@ -91,6 +91,25 @@ archive() {
     ((processed = processed+1))
 }
 
+if [[ "$1" == "add" ]]
+then
+    task="${@:2}"
+    title="$(echo "$task" | sed "s/([a-zA-Z]) //")"
+    pri="$(echo "$task" | grep -Po "\(\K[a-zA-Z]")"
+    fname=$(echo $title | sed 's/ /-/g' | grep "\(([a-zA-Z]\)\?[a-zA-Z\-]")
+    destfile="$taskdir/$fname"
+    [ -f $destfile ] && dieError "cannot create task '$fname': Task exists"
+    cat<<EOF > "$taskdir/$fname"
+---
+title: $title
+date: $(date +%Y-%m-%d)
+pri:$pri
+tags:
+completed:
+---
+EOF
+    exit 0
+fi
 
 if [[ "$1" == "list" ]]
 then
