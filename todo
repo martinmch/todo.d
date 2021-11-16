@@ -15,7 +15,7 @@ taskdir="$HOME/todo/tasks"
 tododir="$HOME/todo"
 donedir="$HOME/todo/done"
 deletedir="$HOME/todo/deleted"
-
+mkdir -p "$tododir $taskdir $deletedir $donedir"
 
 dieError() {
     1>&2 printf '%s: %s\n' "$prog" "$1"
@@ -91,9 +91,6 @@ archive() {
     ((processed = processed+1))
 }
 
-[ ! -d "$HOME/todo" ] && mkdir "$HOME/todo"
-[ ! -d "$taskdir" ] && mkdir "$taskdir"
-[ ! -d "$HOME/todo/done" ] && mkdir "$HOME/todo/done"
 
 if [[ "$1" == "add" ]]
 then
