@@ -15,6 +15,16 @@ tododir="$HOME/todo"
 donedir="$HOME/todo/done"
 deletedir="$HOME/todo/deleted"
 
+
+dieError() {
+    1>&2 printf '%s: %s\n' "$prog" "$1"
+    exit 1
+}
+usage() {
+    echo usage
+    exit 1
+}
+
 # from https://gist.github.com/briantjacobs/7753bf850ca5e39be409
 parse_yaml() {
     local prefix=$2
@@ -58,7 +68,7 @@ archive() {
     eval $(parse_yaml <(sed -n '/---/, /---/{ /---/!p }' "$1"))
 
     # Don't print completed tasks
-    [ -z "$completed" ] && return
+    [ -z "$completed" ] && dieError "cannot archive task: Not completed"
 
     echo "Archiving $(realpath --relative-to=. "$1")"
     mv "$1" ~/todo/done/
