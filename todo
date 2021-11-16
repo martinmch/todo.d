@@ -91,6 +91,10 @@ archive() {
     ((processed = processed+1))
 }
 
+[ ! -d "$HOME/todo" ] && mkdir "$HOME/todo"
+[ ! -d "$taskdir" ] && mkdir "$taskdir"
+[ ! -d "$HOME/todo/done" ] && mkdir "$HOME/todo/done"
+
 if [[ "$1" == "add" ]]
 then
     task="${@:2}"
