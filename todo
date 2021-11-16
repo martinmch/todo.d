@@ -11,6 +11,7 @@ colors["B"]="$YELLOW"
 colors["C"]="$GREEN"
 prog=$(basename $0)
 
+# from https://gist.github.com/briantjacobs/7753bf850ca5e39be409
 parse_yaml() {
     local prefix=$2
     local s
