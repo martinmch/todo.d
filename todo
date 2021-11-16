@@ -76,9 +76,9 @@ print_file() {
         color="${colors["completed"]}"
     fi
 
-    printf '%b' $color
+    [ ! -z $pri ] && printf '%b' $color
     printf '%i ' "$tasks"
-    printf '%s ' "($pri)"
+    [ ! -z $pri ] && printf '%s ' "($pri)"
     printf '%s' "$title"
     printf '%b%s%s%b\n' "$YELLOW" "$tagstr" "$contextstr" "$RESET"
 
