@@ -9,6 +9,7 @@ declare -A colors
 colors["A"]="$RED"
 colors["B"]="$YELLOW"
 colors["C"]="$GREEN"
+colors["completed"]=""
 prog=$(basename $0)
 taskdir="$HOME/todo/tasks"
 tododir="$HOME/todo"
@@ -51,16 +52,21 @@ print_file() {
     # parse_yaml <(sed -n '/---/, /---/{ /---/!p }' "$1")
     eval $(parse_yaml <(sed -n '/---/, /---/{ /---/!p }' "$1"))
 
-    tagstr=$(for t in ${tags_[@]}; do printf '@%s ' "$t"; done; printf '\n')
-    color=${colors[$pri]}
+    tagstr=$(for t in ${tags_[@]}; do printf ' +%s' "$t"; done; printf '\n')
+    contextstr=$(for t in ${contexts_[@]}; do printf ' @%s' "$t"; done; printf '\n')
+    [ ! -z $pri ] && color=${colors[$pri]}
 
-    # Don't print completed tasks
-    [ ! -z "$completed" ] && return
+    if [ ! -z "$completed" ];
+    then
+        color="${colors["completed"]}"
+    fi
 
     printf '%b' $color
+    printf '%i ' "$tasks"
     printf '%s ' "($pri)"
-    printf '%s ' "$title"
-    printf '%b%s%b\n' "$YELLOW" "$tagstr" "$RESET"
+    printf '%s' "$title"
+    printf '%b%s%s%b\n' "$YELLOW" "$tagstr" "$contextstr" "$RESET"
+
     ((processed = processed+1))
 }
 
