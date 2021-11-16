@@ -10,6 +10,10 @@ colors["A"]="$RED"
 colors["B"]="$YELLOW"
 colors["C"]="$GREEN"
 prog=$(basename $0)
+taskdir="$HOME/todo/tasks"
+tododir="$HOME/todo"
+donedir="$HOME/todo/done"
+deletedir="$HOME/todo/deleted"
 
 # from https://gist.github.com/briantjacobs/7753bf850ca5e39be409
 parse_yaml() {
@@ -76,7 +80,25 @@ then
     printf 'TODO: %s of %s tasks shown\n' $processed $tasks
     exit 0
 fi
-
+if [[ "$1" == "del" ]] || [[ "$" == "delete" ]]
+then
+    tasks=0
+    processed=0
+    listdir="$taskdir"/*
+    for f in $listdir
+    do
+        [ ! -e ${f} ] && continue;
+        ((tasks = tasks+1))
+        if [[ " ${@:2} " =~ " $tasks " ]]
+        then
+            mv ${f} "$deletedir"/
+            printf '%s deleted\n' ${f}
+        else
+            usage
+        fi;
+    done
+    exit 0
+fi
 if [[ "$1" == "archive" ]]
 then
     tasks=0
