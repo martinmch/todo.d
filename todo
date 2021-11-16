@@ -22,7 +22,17 @@ dieError() {
     exit 1
 }
 usage() {
-    echo usage
+    cat<<EOF
+$prog - Handles todos
+
+Commands:
+    add - add a task
+    del|delete - delete a task
+    list - Lists all open tasks
+    list all - Lists all tasks
+    archive all - Archives all completed todos
+    archive - Archives all completed todos
+EOF
     exit 1
 }
 
@@ -130,12 +140,4 @@ then
     exit 0
 fi
 
-
-cat<<EOF
-$prog - Handles todos
-
-Commands:
-    list - Lists all todos
-    archive - Archives all completed todos
-EOF
-exit 1
+usage
