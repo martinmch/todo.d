@@ -155,14 +155,19 @@ if [[ "$1" == "archive" ]]
 then
     tasks=0
     processed=0
-    for f in ~/todo/todo/*;
+    listdir="$taskdir"/*
+    for f in $listdir
     do
-        archive "$f"
+        [ ! -e ${f} ] && continue;
         ((tasks = tasks+1))
+        if [ "$2" == "all" ] || [[ " ${@:2} " =~ " $tasks " ]]
+        then
+            archive ${f}
+        else
+            usage
+        fi
     done
-    
-    echo '--'
-    printf 'TODO: %s of %s tasks archived\n' $processed $tasks
+    printf '%s of %s tasks archived\n' $processed $tasks
     exit 0
 fi
 
