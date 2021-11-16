@@ -77,7 +77,7 @@ archive() {
     [ -z "$completed" ] && dieError "cannot archive task: Not completed"
 
     echo "Archiving $(realpath --relative-to=. "$1")"
-    mv "$1" ~/todo/done/
+    mv "$1" "$HOME/todo/done/"
     ((processed = processed+1))
 }
 
