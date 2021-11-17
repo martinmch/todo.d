@@ -1,6 +1,6 @@
 # todo.d
 
-> A simple and extensible shell script for managaing your tasks in a directory.
+> A simple and extensible shell script for managing your tasks in a directory.
 
 todo.d is a computer program (currently written in bash) for easily tracking
 tasks. All tasks correspond to a single file. 
