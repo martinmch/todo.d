@@ -15,7 +15,7 @@ taskdir="$HOME/todo/tasks"
 tododir="$HOME/todo"
 donedir="$HOME/todo/done"
 deletedir="$HOME/todo/deleted"
-mkdir -p "$tododir $taskdir $deletedir $donedir"
+mkdir -p $tododir $taskdir $deletedir $donedir
 
 dieError() {
     1>&2 printf '%s: %s\n' "$prog" "$1"
