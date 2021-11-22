@@ -107,7 +107,7 @@ createTask () {
 ---
 title: $title
 date: $(date +%Y-%m-%d)
-pri:$pri
+pri: $pri
 tags:
 completed:
 ---
