@@ -155,11 +155,14 @@ then
         if [[ " ${@:2} " =~ " $tasks " ]]
         then
             mv ${f} "$deletedir"/
+            ((processed = processed+1))
             printf '%s deleted\n' ${f}
-        else
-            usage
         fi;
     done
+    if [ $processed -eq 0 ]
+    then
+        dieError "cannot delete task: No such task"
+    fi
     exit 0
 fi
 if [[ "$1" == "archive" ]]
