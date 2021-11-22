@@ -96,10 +96,8 @@ archive() {
     ((processed = processed+1))
 }
 
-
-if [[ "$1" == "add" ]]
-then
-    task="${@:2}"
+createTask () {
+    task="${@}"
     title="$(echo "$task" | sed "s/([a-zA-Z]) //")"
     pri="$(echo "$task" | grep -Po "\(\K[a-zA-Z]")"
     fname=$(echo $title | sed 's/ /-/g' | grep "\(([a-zA-Z]\)\?[a-zA-Z\-]")
@@ -114,15 +112,13 @@ tags:
 completed:
 ---
 EOF
-    exit 0
-fi
+}
 
-if [[ "$1" == "list" ]]
-then
+listTasks () {
     tasks=0
     processed=0
     listdir="$taskdir"/*
-    [ "$2" == "all" ] && listdir="$tododir"/**/*
+    [ "$1" == "all" ] && listdir="$tododir"/**/*
     for f in $listdir
     do
         [ ! -e ${f} ] && continue;
@@ -132,8 +128,21 @@ then
     
     echo '--'
     printf 'TODO: %s of %s tasks shown\n' $processed $tasks
+}
+
+
+if [[ "$1" == "add" ]]
+then
+    createTask "${@:2}"
     exit 0
 fi
+
+if [[ "$1" == "list" ]]
+then
+    listTasks $@
+    exit 0
+fi
+
 if [[ "$1" == "del" ]] || [[ "$" == "delete" ]]
 then
     tasks=0
